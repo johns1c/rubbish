@@ -277,11 +277,11 @@ class BooleanObject(PdfObject):
 
 class ArrayObject(list, PdfObject):
     def writeToStream(self, stream, encryption_key):
-        stream.write(b_("["))
+        stream.write(ARRAYSTART)
         for data in self:
             stream.write(b_(" "))
             data.writeToStream(stream, encryption_key)
-        stream.write(b_(" ]"))
+        stream.write(b" " + ARRAYEND)
 
     def readFromStream(stream, pdf):
         # now skips any whitespace  rather than use tok.isspace
@@ -290,7 +290,7 @@ class ArrayObject(list, PdfObject):
 
         arr = ArrayObject()
         tok = stream.read(1)
-        assert tok == ARRAYSTART
+        assert tok == COMMENT
         tok = stream.read(1)
 
         # position on first element
