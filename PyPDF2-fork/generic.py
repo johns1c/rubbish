@@ -290,7 +290,7 @@ class ArrayObject(list, PdfObject):
 
         arr = ArrayObject()
         tok = stream.read(1)
-        assert tok == COMMENT
+        assert tok == ARRAYSTART
         tok = stream.read(1)
 
         # position on first element
